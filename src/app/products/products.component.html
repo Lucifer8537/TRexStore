@@ -1,0 +1,20 @@
+<div class="flex fill-h">
+  <div
+    #filter
+    [ngStyle]="{ height: filterHeight + 'px', top: headerHeight + 'px' }"
+    class="filter-container"
+  >
+    <app-filter
+      class="fill-v"
+      [filterItems]="filterItems"
+      [filterHeight]="filterHeight"
+    ></app-filter>
+  </div>
+  <div class="fill-h">
+    <div #product class="product-container flex fill-h">
+      @for (item of products; track $index) {
+      <app-card-view class="product grid" [item]="item"></app-card-view>
+      }
+    </div>
+  </div>
+</div>

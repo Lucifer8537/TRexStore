@@ -1,0 +1,14 @@
+.filter-container {
+  overflow-y: auto;
+  overflow-x: clip;
+  position: sticky;
+  width: 240px;
+  min-width: 240px;
+}
+.product-container {    flex-wrap: wrap;
+    gap: 30px 20px;
+    justify-content: center;
+}
+.product {
+    width: fit-content;
+}

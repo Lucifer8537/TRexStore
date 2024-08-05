@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  padding: 0;
+  margin: 0;
+}
+.pointer {
+  cursor: pointer;
+}
+.fill-v {
+  height: 100%;
+}
+.fill-h {
+  width: 100%;
+}
+.grid {
+  display: grid;
+}
+.flex {
+  display: flex;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #eeeeee;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

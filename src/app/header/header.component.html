@@ -1,0 +1,27 @@
+<div class="header-container">
+  <div class="title-container">
+    <span class="title">TeeRex Store</span>
+  </div>
+  <div class="views">
+    <div class="tabs-container">
+      <div class="tab-1">
+        <span
+          [class.selected]="products"
+          class="tabs pointer"
+          (click)="onTabChange(PRODUCTS)"
+          >Products</span
+        >
+        <div class="underline"></div>
+      </div>
+      <div class="tab-2">
+        <fa-icon
+          [class.selected]="carts"
+          class="tabs pointer"
+          (click)="onTabChange(CARTS)"
+          [icon]="faShoppingCart"
+        ></fa-icon>
+        <div class="underline"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+.card-view-container {
+  width: 250px;
+  background-color: #222831;
+  color: white;
+  display: grid;
+  justify-content: center;
+  position: relative;
+}
+
+img {
+  width: 250px;
+  height: 250px;
+}
+.type {
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  background-color: black;
+  top: 10px;
+  right: 10px;
+  padding: 0px 8px;
+  border-radius: 40px;
+}
+.details-container {
+  color: #eeeeee;
+  padding: 10px 10px;
+  gap: 5px;
+}
+.price-container {
+  font-size: larger;
+  font-weight: 600;
+  font-family: emoji;
+}
+.cart-btn {
+  padding: 5px 5px;
+  background: black;
+  color: #eeeeee;
+  border-color: transparent;
+  outline: none;
+  font-weight: 600;
+  font-family: emoji;
+  cursor: pointer;
+}
+.cart-btn:hover {
+  background-color: #eeeeee;
+  color: black;
+}

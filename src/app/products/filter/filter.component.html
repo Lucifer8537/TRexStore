@@ -1,0 +1,25 @@
+<div class="filter grid">
+  @for (filter of filterItems; track $index; let last = $last) {
+  <div class="option-container grid">
+    <span class="title">{{ filter.label }}</span>
+    <div class="grid">
+      @for (item of filter.filterItems; track $index; let index = $index) {
+      <div class="filter-option flex pointer">
+        <!-- <input
+          type="checkbox"
+          id="{{ filter.label }}-id-{{ index }}"
+          [(value)]="item.checked"
+        />
+        <div class="option-title">{{ item.option }}</div> -->
+        <mat-checkbox color="tertiary" [checked]="item.checked"  (change)="onFilterSelected()">
+          <span class="option-title">{{item.option}}</span>
+        </mat-checkbox>
+      </div>
+      }
+    </div>
+  </div>
+  @if (!last) {
+    <hr class="divider">
+  }
+  }
+</div>

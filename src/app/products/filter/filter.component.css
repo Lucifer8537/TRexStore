@@ -1,14 +1,19 @@
+:host {
+  width: 240px;
+  min-width: 240px;
+}
 .filter {
   background-color: #393e46;
   color: white;
-
   padding: 40px 40px;
   gap: 10px;
+  height: 100%;
+  overflow: auto;
+  box-sizing: border-box;
 }
 .option-container {
   gap: 5px;
 }
-
 
 input[type="checkbox"] {
   -ms-transform: scale(1.5); /* IE */

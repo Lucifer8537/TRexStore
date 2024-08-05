@@ -21,38 +21,15 @@ import { Subscription } from 'rxjs';
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
-export class ProductsComponent implements OnInit, OnDestroy {
-  @ViewChild('product', { static: true }) productElem!: ElementRef;
-
+export class ProductsComponent implements OnInit {
   products: ArticleDetails[] = mockData;
-  headerHeight!: number;
-  heightSubs!: Subscription;
   filterItems: FilterDetails[] = [];
-  innerHeight!: number;
-  filterHeight!: number;
-  productWidth!: number;
 
   constructor(private dts: DataTransferService) {}
 
-  @HostListener('window:resize', ['$event'])
-  onResize = (event: Event) => this.calculateHeight();
-
   ngOnInit(): void {
-    this.headerHeight = this.dts.getHeaderHeight();
-    this.calculateHeight();
-    this.heightSubs = this.dts.headerHeigthSub.subscribe((height) => {
-      this.headerHeight = height;
-      this.calculateHeight();
-    });
     this.initFilters();
   }
-
-  private calculateHeight = () => {
-    this.innerHeight = window.innerHeight;
-    this.filterHeight = this.innerHeight - this.headerHeight;
-    this.productWidth = this.productElem.nativeElement.innerWidth;
-    console.log('productWidth : ', this.productWidth);
-  };
 
   private initFilters = () => {
     const colorSets = new Set<string>();
@@ -84,6 +61,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       label: 'Types',
       filterItems: this.getFilterItems([...typeSets]),
     });
+    console.log('filterItems : ', this.filterItems);
   };
 
   private getFilterItems = (list: string[] | number[]): filterDetailItems[] => {
@@ -91,8 +69,4 @@ export class ProductsComponent implements OnInit, OnDestroy {
     list.forEach((l) => l && filterList.push({ checked: false, option: l }));
     return filterList;
   };
-
-  ngOnDestroy(): void {
-    this.heightSubs.unsubscribe();
-  }
 }

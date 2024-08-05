@@ -1,14 +1,19 @@
-.filter-container {
-  overflow-y: auto;
-  overflow-x: clip;
-  position: sticky;
-  width: 240px;
-  min-width: 240px;
+:host {
+  height: 100%;
+  overflow: auto;
 }
-.product-container {    flex-wrap: wrap;
-    gap: 30px 20px;
-    justify-content: center;
+.product-list-container {
+  flex-wrap: wrap;
+  gap: 30px 20px;
+  justify-content: center;
+  height: 100%;
+  overflow: auto;
+}
+.product-container {
+  background-color: #393e46;
+  height: 100%;
+  overflow: hidden;
 }
 .product {
-    width: fit-content;
+  width: fit-content;
 }

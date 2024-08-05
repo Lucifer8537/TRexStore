@@ -17,7 +17,6 @@ export interface filterDetailItems {
 })
 export class FilterComponent implements OnInit {
   @Input() filterItems!: FilterDetails[];
-  @Input() filterHeight!: number;
 
   colorsList: filterDetailItems[] = [];
   genderList: filterDetailItems[] = [];

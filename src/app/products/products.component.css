@@ -3,8 +3,6 @@
   overflow: auto;
 }
 .product-list-container {
-  flex-wrap: wrap;
-  gap: 30px 20px;
   justify-content: center;
   height: 100%;
   overflow: auto;
@@ -16,4 +14,8 @@
 }
 .product {
   width: fit-content;
+}
+.product-list {
+  gap: 30px 20px;
+  margin: 50px 0px;
 }

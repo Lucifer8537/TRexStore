@@ -1,9 +1,17 @@
 <div class="product-container flex">
   <app-filter [filterItems]="filterItems"></app-filter>
 
-  <div class="product-list-container flex">
-    @for (item of products; track $index) {
-    <app-card-view class="product grid" [item]="item"></app-card-view>
-    }
+  <div class="product-list-container grid fill-h" #product>
+    <div
+      [ngStyle]="{
+        'grid-template-columns': columnExp
+      }"
+      [style.width.px]="productListingWidth"
+      class="product-list grid"
+    >
+      @for (item of products; track $index) {
+      <app-card-view class="product grid" [item]="item"></app-card-view>
+      }
+    </div>
   </div>
 </div>

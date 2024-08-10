@@ -29,6 +29,7 @@ input[type="checkbox"] {
   font-weight: 600;
   margin-bottom: 10px;
   font-family: emoji;
+  text-transform: capitalize;
 }
 .filter-option {
   display: flex;

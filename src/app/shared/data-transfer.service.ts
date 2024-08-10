@@ -4,18 +4,13 @@ import { FilterDetails } from '../app.component';
 
 @Injectable({ providedIn: 'root' })
 export class DataTransferService {
-  headerHeight!: number;
-  headerHeigthSub = new Subject<number>();
   filterItems!: FilterDetails[];
-
-  getHeaderHeight = (): number => this.headerHeight;
-
-  setHeaderHeight = (height: number) => {
-    this.headerHeight = height;
-    this.headerHeigthSub.next(this.headerHeight);
-  };
+  filterItemsSubs = new Subject<FilterDetails[]>();
 
   getFilterDetails = (): FilterDetails[] => this.filterItems;
 
-  setFilterDetails = (filter: FilterDetails[]) => (this.filterItems = filter);
+  setFilterDetails = (filter: FilterDetails[]) => {
+    this.filterItems = filter;
+    this.filterItemsSubs.next(this.filterItems);
+  };
 }

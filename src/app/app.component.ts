@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { ProductsComponent } from './products/products.component';
@@ -13,9 +7,7 @@ import {
   FilterComponent,
   filterDetailItems,
 } from './products/filter/filter.component';
-import { mockData } from './mock-data';
 import { CommonModule } from '@angular/common';
-import { DataTransferService } from './shared/data-transfer.service';
 
 export interface ArticleDetails {
   id: number;
@@ -41,23 +33,9 @@ export interface FilterDetails {
     HeaderComponent,
     ProductsComponent,
     CartsComponent,
-    FilterComponent,
     CommonModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
-  @ViewChild('header', { static: true }) header!: ElementRef;
-
-  readonly mockData: ArticleDetails[] = mockData;
-
-  headerHeight!: number;
-
-  constructor(private dts: DataTransferService) {}
-
-  ngOnInit(): void {
-    this.headerHeight = this.header.nativeElement.offsetHeight;
-    this.dts.setHeaderHeight(this.headerHeight);
-  }
-}
+export class AppComponent {}

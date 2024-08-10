@@ -1,17 +1,19 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FilterDetails } from '../../app.component';
 import { CommonModule } from '@angular/common';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
+import { DataTransferService } from '../../shared/data-transfer.service';
 
 export interface filterDetailItems {
   checked: boolean;
-  option: string | number;
+  option: string;
 }
 
 @Component({
   selector: 'app-filter',
   standalone: true,
-  imports: [CommonModule, MatCheckboxModule],
+  imports: [CommonModule, MatCheckboxModule, FormsModule],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.css',
 })
@@ -21,30 +23,16 @@ export class FilterComponent implements OnInit {
   colorsList: filterDetailItems[] = [];
   genderList: filterDetailItems[] = [];
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private dts: DataTransferService
+  ) {}
 
   ngOnInit(): void {}
 
-  onFilterSelected = () => {
-    console.log('filterItems : ', this.filterItems);
+  onFilterSelected = (index: number, subIndex: number, oldVal: boolean) => {
+    this.filterItems[index].filterItems[subIndex].checked = !oldVal;
+    console.log('this.filterItems : ', this.filterItems);
+    this.dts.filterItemsSubs.next(this.filterItems);
   };
-
-  // onSelectFilter = (item: filterDetailItems, index: number, option: string) => {
-  //   switch (option) {
-  //     case 'Colors':
-  //       this.colorsList[index].checked = !this.colorsList[index].checked;
-  //       console.log('this.colorsList : ', this.colorsList);
-  //       this.cdr.markForCheck();
-  //       break;
-  //     case 'Genders':
-  //       this.genderList[index].checked = !this.genderList[index].checked;
-  //       console.log('this.genderList : ', this.genderList);
-  //       this.cdr.markForCheck();
-  //       break;
-  //     case
-  //     default:
-  //       console.log('default!!');
-  //       break;
-  //   }
-  // };
 }

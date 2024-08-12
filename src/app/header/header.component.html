@@ -2,6 +2,17 @@
   <div class="title-container">
     <span class="title">TeeRex Store</span>
   </div>
+  @if (!carts) {
+  <div class="search-container">
+    <input
+      [(ngModel)]="search"
+      (ngModelChange)="onSearchChange($event)"
+      placeholder="Search..."
+      type="text"
+      class="search"
+    />
+  </div>
+  }
   <div class="views">
     <div class="tabs-container">
       <div class="tab-1">

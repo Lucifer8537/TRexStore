@@ -30,3 +30,20 @@
 .selected {
   color: #00adb5;
 }
+
+.search-container {
+  width: 350px;
+  min-width: 100px;
+}
+.search {
+  width: -webkit-fill-available;
+  padding: 10px 25px;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  border-radius: 25px;
+}
+
+.search::placeholder {
+  justify-items: center;
+}

@@ -19,6 +19,7 @@ export interface ArticleDetails {
   color: string;
   gender: string;
   quantity: number;
+  addedCart?: boolean;
 }
 
 export interface FilterDetails {

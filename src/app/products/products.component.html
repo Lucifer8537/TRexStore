@@ -2,6 +2,7 @@
   <app-filter [filterItems]="filterItems"></app-filter>
 
   <div class="product-list-container grid fill-h" #product>
+    @if (products && products.length > 0) {
     <div
       [ngStyle]="{
         'grid-template-columns': columnExp
@@ -13,5 +14,8 @@
       <app-card-view class="product grid" [item]="item"></app-card-view>
       }
     </div>
+    } @else {
+    <div class="no-show">NO ITEMS TO SHOW</div>
+    }
   </div>
 </div>

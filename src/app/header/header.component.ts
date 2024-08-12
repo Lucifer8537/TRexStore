@@ -3,11 +3,14 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { DataTransferService } from '../shared/data-transfer.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FontAwesomeModule, RouterOutlet],
+  imports: [FontAwesomeModule, RouterOutlet, CommonModule, FormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -17,18 +20,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   products!: boolean;
   carts!: boolean;
   tabSelected!: string;
+  search: string = '';
 
   PRODUCTS = 'products';
   CARTS = 'carts';
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private dts: DataTransferService) {}
 
   ngOnInit(): void {
     const url = window.location.href;
-    this.tabSelected = url.includes(this.PRODUCTS) ? this.PRODUCTS : this.CARTS;
-    this.tabSelected === this.PRODUCTS
-      ? (this.products = true)
-      : (this.carts = true);
+    this.tabSelected = url.includes(this.CARTS) ? this.CARTS : this.PRODUCTS;
+    this.products = this.tabSelected === this.PRODUCTS;
+    this.carts = this.tabSelected === this.CARTS;
   }
 
   onTabChange = (tab: string) => {
@@ -38,6 +41,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.carts = !this.carts;
     this.router.navigate(['/' + tab]);
   };
+
+  onSearchChange = (text: string) => this.dts.serachSubs.next(text);
 
   ngOnDestroy(): void {}
 }

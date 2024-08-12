@@ -6,6 +6,7 @@ import { FilterDetails } from '../app.component';
 export class DataTransferService {
   filterItems!: FilterDetails[];
   filterItemsSubs = new Subject<FilterDetails[]>();
+  serachSubs = new Subject<string>();
 
   getFilterDetails = (): FilterDetails[] => this.filterItems;
 

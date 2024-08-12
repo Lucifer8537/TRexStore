@@ -19,3 +19,11 @@
   gap: 30px 20px;
   margin: 50px 0px;
 }
+.no-show {
+  align-items: center;
+  display: flex;
+  color: #eeeeee;
+  font-family: emoji;
+  font-weight: 800;
+  font-size: 20px;
+}

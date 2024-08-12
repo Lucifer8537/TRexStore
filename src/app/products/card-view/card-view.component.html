@@ -1,14 +1,18 @@
 <div class="card-view-container">
   <!-- <div class="name-container">{{item.name}}</div> -->
   <img [src]="item.imageURL" alt="article image" />
-  <div class="type">
-    {{ item.type }}
+  <div class="type-container flex">
+    <div class="type">{{ item.type }}</div>
+    <fa-icon
+      class="gender"
+      [icon]="item.gender === 'Men' ? faPerson : faPersonDress"
+    ></fa-icon>
   </div>
   <div class="grid">
     <div class="details-container grid">
       <div class="name-container">{{ item.name }}</div>
       <div class="price-container">Rs {{ item.price }}</div>
     </div>
-    <button class="cart-btn">Add to cart</button>
+    <button class="cart-btn" (click)="onAddCart()">{{ btnLabel }}</button>
   </div>
 </div>

@@ -3,4 +3,6 @@ export const label = {
   gender: 'gender',
   price: 'price',
   type: 'type',
+  addCart: 'Add To Cart',
+  goToCart: 'Go To Cart',
 };

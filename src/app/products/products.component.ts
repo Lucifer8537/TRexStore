@@ -39,6 +39,8 @@ export class ProductsComponent implements OnInit {
   filterValues = [0, 250, 450];
   costFilter: string[] = [];
   productListingWidth!: number;
+  searchSubs!: Subscription;
+  saveProducts!: ArticleDetails[];
   constructor(
     private dts: DataTransferService,
     private cdr: ChangeDetectorRef
@@ -49,6 +51,25 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initColumnNumbers();
+    this.saveProducts = this.products;
+    this.searchSubs = this.dts.serachSubs.subscribe({
+      next: (search) => {
+        if (search) {
+          const lowerCaseSearch = search.toLowerCase();
+          this.products = this.saveProducts.filter(
+            (save) =>
+              save &&
+              (save.name.toLowerCase().includes(lowerCaseSearch) ||
+                save.type.toLowerCase().includes(lowerCaseSearch) ||
+                save.gender.toLowerCase().includes(lowerCaseSearch))
+          );
+        } else {
+          this.products = mockData;
+        }
+      },
+      error: (e) => console.error(e),
+      complete: () => this.cdr.markForCheck(),
+    });
     this.filterSubs = this.dts.filterItemsSubs.subscribe({
       next: (filter) => this.applyFilter(filter),
       error: (e) => console.error(e),
@@ -96,7 +117,6 @@ export class ProductsComponent implements OnInit {
       label: this.Label.type,
       filterItems: this.getFilterItems([...typeSets]),
     });
-    console.log('filterItems : ', this.filterItems);
   };
 
   private getFilterItems = (list: string[]): filterDetailItems[] => {
@@ -132,10 +152,6 @@ export class ProductsComponent implements OnInit {
           }
         })
     );
-    console.log('filter color: ', this.filtersColor);
-    console.log('filter type : ', this.filtersType);
-    console.log('filter gender : ', this.filtersGender);
-    console.log('costFilter : ', this.costFilter);
     let filtProd: ArticleDetails[] = mockData;
     if (this.filtersColor && this.filtersColor.length) {
       filtProd = filtProd.filter((mock) => {
@@ -170,8 +186,45 @@ export class ProductsComponent implements OnInit {
         return false;
       });
     }
-    if (filtProd && filtProd.length) this.products = filtProd;
+
+    if (this.costFilter && this.costFilter.length) {
+      const costIndex: number[] = [];
+      this.costFilter.map((cost) => {
+        const index = this.filterOption.findIndex((c) => c && c == cost);
+        costIndex.push(index);
+      });
+      console.log(costIndex);
+      filtProd = filtProd.filter((mock) => {
+        if (mock) {
+          const result = costIndex.some((index) => {
+            if (
+              index !== this.filterValues.length - 1 &&
+              this.filterValues[index] <= mock.price &&
+              this.filterValues[index + 1] > mock.price
+            ) {
+              return true;
+            } else if (
+              index === this.filterValues.length - 1 &&
+              this.filterValues[index] <= mock.price
+            ) {
+              return true;
+            }
+            return false;
+          });
+          return result;
+        }
+        return false;
+      });
+    }
+    if (
+      (this.filtersColor && this.filtersColor.length) ||
+      (this.filtersType && this.filtersType.length) ||
+      (this.filtersGender && this.filtersGender.length) ||
+      (this.costFilter && this.costFilter.length)
+    )
+      this.products = filtProd;
     else this.products = mockData;
+    this.saveProducts = this.products;
     this.cdr.markForCheck();
   };
 }

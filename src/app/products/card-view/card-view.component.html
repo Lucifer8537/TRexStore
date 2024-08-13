@@ -13,6 +13,13 @@
       <div class="name-container">{{ item.name }}</div>
       <div class="price-container">Rs {{ item.price }}</div>
     </div>
-    <button class="cart-btn" (click)="onAddCart()">{{ btnLabel }}</button>
+    <button
+      [class.cart-btn]="!noItem"
+      [class.out-of-stock]="noItem"
+      [disabled]="noItem"
+      (click)="onAddCart()"
+    >
+      {{ btnLabel }}
+    </button>
   </div>
 </div>

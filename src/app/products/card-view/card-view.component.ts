@@ -9,6 +9,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { label } from '../../shared/label';
+import {
+  cartObj,
+  DataTransferService,
+} from '../../shared/data-transfer.service';
 
 @Component({
   selector: 'app-card-view',
@@ -25,17 +29,30 @@ export class CardViewComponent implements OnInit {
   faPerson = faPerson;
   faPersonDress = faPersonDress;
   btnLabel!: string;
+  noItem!: boolean;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private dts: DataTransferService) {}
 
   ngOnInit(): void {
-    this.checkBtn();
+    this.noItem = this.item.quantity === 0;
+    this.noItem ? (this.btnLabel = 'Out of Stock') : this.checkBtn();
   }
 
   onAddCart = () => {
     if (this.item.addedCart) {
       this.router.navigate(['/carts']);
     } else {
+      const cartItem: cartObj = {
+        id: this.item.id,
+        currency: this.item.currency,
+        gender: this.item.gender,
+        imageURL: this.item.imageURL,
+        itemNumber: 1,
+        name: this.item.name,
+        price: this.item.price,
+        quantity: this.item.quantity,
+      };
+      this.dts.setCartList(cartItem);
       this.item.addedCart = true;
       this.checkBtn();
     }

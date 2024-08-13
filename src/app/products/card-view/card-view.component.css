@@ -45,9 +45,20 @@ img {
   font-family: emoji;
   cursor: pointer;
 }
+.out-of-stock {
+  padding: 5px 5px;
+  background: #eeeeee;
+  color: black;
+  border-color: transparent;
+  outline: none;
+  font-weight: 600;
+  font-family: emoji;
+}
 .cart-btn:hover {
   background-color: #eeeeee;
   color: black;
 }
-.gender {color: black;
-  font-size: 20px;}
+.gender {
+  color: black;
+  font-size: 20px;
+}

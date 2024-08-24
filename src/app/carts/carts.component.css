@@ -1,0 +1,14 @@
+:host {
+  height: 100%;
+  overflow: auto;
+  background-color: #393e46;
+}
+.cart-container {
+  overflow: auto;
+  color: #eeeeee;
+}
+
+h6 {
+  text-align: center;
+  margin: 25px 0px;
+}

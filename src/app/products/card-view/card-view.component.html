@@ -4,7 +4,8 @@
   <div class="type-container flex">
     <div class="type">{{ item.type }}</div>
     <fa-icon
-      class="gender"
+      class="gender icon-outline"
+      [ngStyle]="{color: item.gender === 'Men' ? 'lightblue' : 'pink'}"
       [icon]="item.gender === 'Men' ? faPerson : faPersonDress"
     ></fa-icon>
   </div>

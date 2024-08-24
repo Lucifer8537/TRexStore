@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   HostListener,
-  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -41,6 +40,7 @@ export class ProductsComponent implements OnInit {
   productListingWidth!: number;
   searchSubs!: Subscription;
   saveProducts!: ArticleDetails[];
+  searchText = '';
   constructor(
     private dts: DataTransferService,
     private cdr: ChangeDetectorRef
@@ -54,29 +54,38 @@ export class ProductsComponent implements OnInit {
     this.saveProducts = this.products;
     this.searchSubs = this.dts.serachSubs.subscribe({
       next: (search) => {
-        if (search) {
-          const lowerCaseSearch = search.toLowerCase();
-          this.products = this.saveProducts.filter(
-            (save) =>
-              save &&
-              (save.name.toLowerCase().includes(lowerCaseSearch) ||
-                save.type.toLowerCase().includes(lowerCaseSearch) ||
-                save.gender.toLowerCase().includes(lowerCaseSearch))
-          );
-        } else {
-          this.products = mockData;
-        }
+        this.searchText = search;
+        this.filterProducts();
       },
       error: (e) => console.error(e),
       complete: () => this.cdr.markForCheck(),
     });
     this.filterSubs = this.dts.filterItemsSubs.subscribe({
-      next: (filter) => this.applyFilter(filter),
+      next: (filter) => {
+        this.filterItems = filter;
+        this.filterProducts();
+      },
       error: (e) => console.error(e),
       complete: () => this.cdr.markForCheck(),
     });
     this.initFilters();
   }
+
+  private filterProducts = () => {
+    this.applyFilter();
+    this.searchProducts();
+  };
+
+  private searchProducts = () => {
+    const lowerCaseSearch = this.searchText.toLowerCase();
+    this.products = this.products.filter(
+      (save) =>
+        save &&
+        (save.name.toLowerCase().includes(lowerCaseSearch) ||
+          save.type.toLowerCase().includes(lowerCaseSearch) ||
+          save.gender.toLowerCase().includes(lowerCaseSearch))
+    );
+  };
 
   private initColumnNumbers = () => {
     const width = this.product.nativeElement.offsetWidth;
@@ -125,8 +134,7 @@ export class ProductsComponent implements OnInit {
     return filterList;
   };
 
-  private applyFilter = (filter: FilterDetails[]) => {
-    this.filterItems = filter;
+  private initSelectedFilter = () => {
     this.filtersColor = [];
     this.filtersGender = [];
     this.filtersType = [];
@@ -152,7 +160,10 @@ export class ProductsComponent implements OnInit {
           }
         })
     );
-    let filtProd: ArticleDetails[] = mockData;
+  };
+
+  private filteredProducts = (): ArticleDetails[] => {
+    let filtProd: ArticleDetails[] = this.saveProducts;
     if (this.filtersColor && this.filtersColor.length) {
       filtProd = filtProd.filter((mock) => {
         if (mock) {
@@ -216,6 +227,12 @@ export class ProductsComponent implements OnInit {
         return false;
       });
     }
+    return filtProd;
+  };
+
+  private applyFilter = () => {
+    this.initSelectedFilter();
+    let filtProd: ArticleDetails[] = this.filteredProducts();
     if (
       (this.filtersColor && this.filtersColor.length) ||
       (this.filtersType && this.filtersType.length) ||
@@ -223,8 +240,7 @@ export class ProductsComponent implements OnInit {
       (this.costFilter && this.costFilter.length)
     )
       this.products = filtProd;
-    else this.products = mockData;
-    this.saveProducts = this.products;
+    else this.products = this.saveProducts;
     this.cdr.markForCheck();
   };
 }

@@ -1,10 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-  RouterOutlet,
-} from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
@@ -37,17 +32,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const url = event.url;
-        this.tabSelected = url.includes(this.CARTS)
-          ? this.CARTS
-          : this.PRODUCTS;
-        this.products = url.includes(this.PRODUCTS);
-        this.carts = url.includes(this.CARTS);
+        this.selectTabs(url);
       }
     });
-    this.tabSelected = url.includes(this.CARTS) ? this.CARTS : this.PRODUCTS;
-    this.products = this.tabSelected === this.PRODUCTS;
-    this.carts = this.tabSelected === this.CARTS;
+    this.selectTabs(url);
   }
+
+  private selectTabs = (url: string) => {
+    this.tabSelected = url.includes(this.CARTS) ? this.CARTS : this.PRODUCTS;
+    this.products = url.includes(this.PRODUCTS);
+    this.carts = url.includes(this.CARTS);
+  };
 
   onTabChange = (tab: string) => {
     if (this.tabSelected === tab) return;

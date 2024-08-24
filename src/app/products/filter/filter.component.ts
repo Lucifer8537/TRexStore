@@ -32,7 +32,6 @@ export class FilterComponent implements OnInit {
 
   onFilterSelected = (index: number, subIndex: number, oldVal: boolean) => {
     this.filterItems[index].filterItems[subIndex].checked = !oldVal;
-    console.log('this.filterItems : ', this.filterItems);
     this.dts.filterItemsSubs.next(this.filterItems);
   };
 }

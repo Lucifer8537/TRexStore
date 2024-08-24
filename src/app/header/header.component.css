@@ -1,4 +1,4 @@
-.header-container {
+header {
   display: flex;
   justify-content: space-between;
   padding: 0px 35px;
@@ -11,7 +11,7 @@
 .title {
   font-size: 30px;
 }
-.tabs-container {
+nav {
   display: flex;
   align-items: center;
   gap: 35px;
